@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Myproject</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+	  <a class="navbar-brand" href="#">MOOC</a>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	  <ul class="nav navbar-nav">
+	    <li class="active"><%= link_to "Home", welcome_index_path %> <span class="sr-only">(current)</span></li>
+	    <li><%= link_to "courses", courses_path %></li>
+	    <li><%= link_to "lectures", lectures_path %></li>
+	
+
+	    <% if user_signed_in? %>
+			<li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %> </li>
+			<li> Welcome <%= current_user.try(:name) %></li>
+		<% end%>
+		 
+		 <li><%= link_to "admin", new_admin_user_session_path %></li>
+
+	  </ul>
+
+	</div><!-- /.navbar-collapse -->
+
+  </div><!-- /.container-fluid -->
+
+</nav>
+<!-- <%= image_tag current_user.try(:picture)%>   -->
+ <%= yield %>
+
+</body>
+</html>
