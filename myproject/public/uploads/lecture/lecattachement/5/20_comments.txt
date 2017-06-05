@@ -1,0 +1,7 @@
+* lecture view looks corruoted when user enter a multiline content
+* Lecture link should be clickable in lecture view
+* user can enter an empty comment
+* user can create a lecture while he has no course created
+* admin can create a course that doesn't belong to any user
+* admin can create a lecture that doesn't belong to any user or course
+* use permit_params in comments controller

@@ -1,0 +1,32 @@
+<div class="container">
+    <p id="notice">
+        <%= notice %>
+    </p>
+
+    <p>
+        <strong>Title:</strong>
+        <%= @course.title %>
+    </p>
+
+    <p>
+        <strong>User:</strong>
+        <%= @course.user.try(:name) %>
+    </p>
+
+    <div>
+        <% if @course.lectures.count > 0 %>
+            This course has
+            <%= @course.lectures.count %> lecture(s).
+                <% end %>
+
+    </div>
+    <% if user_signed_in? %>
+        <% if current_user.status === "teacher"&& current_user.id===@course.user.id %>
+
+            <%= link_to 'Edit', edit_course_path(@course) %> |
+                <%= link_to 'Delete', @course , method: :delete,data:{confirm:"are you sure"} %>
+                    <%end%>
+                        <%end%>
+                            <%= link_to 'Back', courses_path %>
+
+</div>

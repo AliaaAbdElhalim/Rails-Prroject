@@ -1,0 +1,37 @@
+#5aled 
+select m.type,count(item_id),m.user_id,m.id
+from likes l join media m
+on l.item_id = m.id
+where l.type = 'media' and m.type='photo'
+group by m.type , m.user_id,m.id
+having count(*)>1 
+order by count(item_id) Desc limit 2;
+
+
+#shehata 
+
+select count(l.user_id) as likes_num ,l.item_id ,l.type,u.type_id,lookup.name from likes l
+join media m on l.item_id = m.id
+join users u on m.user_id = u.id
+join lookup on u.type_id = lookup.id
+where u.type_id=8 and l.type='photo'
+GROUP BY item_id
+order by likes_num DESC LIMIT 10;
+
+
+//front end --> postcontroller
+
+
+         $scope.editPost = function (valid) {
+           if (valid) {
+            
+                    var updatedata = $scope.post
+                }
+
+            Post.updatePost(updatedata).then(function (response) {
+                console.log("Post update in Post controller" + response);
+            }, function (err) {
+                console.log("Error in post deleted controller" + err)
+            })
+        }; 
+

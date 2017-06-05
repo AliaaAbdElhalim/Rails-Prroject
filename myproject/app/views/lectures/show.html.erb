@@ -1,0 +1,72 @@
+<p id="notice">
+<%= notice %>
+</p>
+
+<p>
+<strong>title:</strong>
+<%= raw @lecture.try(:title)%>
+</p>
+
+<p>
+<strong>Content:</strong>
+<%= raw @lecture.try(:content) %>
+</p>
+
+
+
+
+<% if @lecture.lecattachement_url %>
+<p>
+<%= link_to "Download", @lecture.try(:lecattachement_url) %>
+</p>
+<% else %>
+<p>No Download Link</p>
+<% end %>
+
+
+<p>
+<strong>Course:</strong>
+<%= @lecture.try(:course).try(:title) %>
+</p>
+
+
+<% if user_signed_in? %>
+<% if @lecture.user.id===current_user.id %>
+
+<%= link_to 'Edit', edit_lecture_path(@lecture) %> |
+<%= link_to 'Delete', @lecture , method: :delete,data:{confirm:"are you sure"} %>
+<%= link_to 'Back', lectures_path %>
+<% end %>
+<%= link_to like_lecture_path(@lecture), method: :put do %>
+Like
+<%= @lecture.get_upvotes.size %>
+<% end %>
+<%= link_to dislike_lecture_path(@lecture), method: :put do %>
+dislike
+<%= @lecture.get_downvotes.size %>
+<% end %>
+<% if current_user.voted_on?(@lecture,:vote_scope => 'spam') %>
+<%= link_to unspam_lecture_path(@lecture), class: 'dislike', method: :put do %>
+<span class="badge">Reported as a unspam</span>
+<% end %>
+<% else %>
+<%= link_to spam_lecture_path(@lecture), class: 'like', method: :put do %>
+<span class="badge">Reported as a spam</span>
+
+<% end %>
+<% end %>
+
+
+
+<h3>Comments: </h3>
+<div id="comments_section">
+<% @comments.each do |comment| %>
+<h4>
+<%= comment.user.name %>
+</h4>
+<%= comment.content %>
+<% end %>
+
+</div>
+<%= render 'comment' %>
+<% end %>
