@@ -1,7 +1,0 @@
-<% @comments.each do |comment| %>
- <strong> <%= comment.user.try(:name)%></strong>
- 
-
-  <p> <%= comment.content %> </p>
-<% end %>
-<%= render 'comments/form' %>
